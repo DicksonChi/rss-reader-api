@@ -39,22 +39,6 @@ services:
     networks:
     - rss-reader-network
 
-# for the sake of this project we dont need to start multiple workers. We can use one worker where we also do the scheduling
-#  celery_worker:
-#    build: .
-#    restart: on-failure
-#    volumes:
-#      - .:/django
-#    env_file:
-#      - ./docker/develop/.env
-#    depends_on:
-#      - postgres
-#      - redis
-#      - web
-#    entrypoint:
-#      - /worker-entrypoint.sh
-#    networks:
-#      - rss-reader-network
 
   celery_beat:
     build: .
