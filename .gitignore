@@ -14,8 +14,8 @@ out.xml
 virtualenv/
 venv/
 htmlcov/
-src/static_root/
-src/static_dist/
+rss_reader/static_root/
+rss_reader/static_dist/
 
 # Python compiled byte code
 *.pyc
