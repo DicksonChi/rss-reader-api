@@ -1,0 +1,52 @@
+# IDEs
+.project
+.pydevproject
+.idea
+.vscode
+.settings
+.DS_Store
+out.xml
+
+# Random files
+*~
+\#*
+
+virtualenv/
+venv/
+htmlcov/
+src/static_root/
+src/static_dist/
+
+# Python compiled byte code
+*.pyc
+
+# SQLite3 database
+*.sqlite
+
+# Node modules
+node_modules/
+yarn.lock
+npm-debug.log
+package-lock.json
+
+# Coverage 
+coverage/
+.coverage
+.cache
+
+# static validation files
+.eslintrc
+.sass-lint.yml
+.prospector.yml
+.coveragerc
+
+# celery
+celerybeat-schedule
+celerybeat.pid
+
+# not include scripts because they come from external module
+scripts/
+media/
+
+# bank statement scrapper
+statement_*
