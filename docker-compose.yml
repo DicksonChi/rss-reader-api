@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:6.2.3-alpine
+    networks:
+    - rss-reader-network
+
+  postgres:
+    image: postgres:11.5
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=password
+    ports:
+    - 5432:5432
+    volumes:
+    - ./docker/develop/postgres/data:/var/lib/postgresql
+    - ./docker/develop/postgres/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+    networks:
+    - rss-reader-network
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        POETRY_INSTALL_OPTIONS: ""
+    env_file:
+    - ./docker/develop/.env
+    ports:
+    - 8000:8000
+    depends_on:
+      - redis
+      - postgres
+    volumes:
+      - .:/django
+    entrypoint:
+      - /entrypoint.sh
+    networks:
+    - rss-reader-network
+
+# for the sake of this project we dont need to start multiple workers. We can use one worker where we also do the scheduling
+#  celery_worker:
+#    build: .
+#    restart: on-failure
+#    volumes:
+#      - .:/django
+#    env_file:
+#      - ./docker/develop/.env
+#    depends_on:
+#      - postgres
+#      - redis
+#      - web
+#    entrypoint:
+#      - /worker-entrypoint.sh
+#    networks:
+#      - rss-reader-network
+
+  celery_beat:
+    build: .
+    restart: always
+    volumes:
+      - .:/django
+    env_file:
+      - ./docker/develop/.env
+    depends_on:
+      - postgres
+      - redis
+      - web
+    entrypoint:
+      - /scheduler-entrypoint.sh
+    networks:
+      - rss-reader-network
+
+networks:
+  rss-reader-network:
+    name: rss-reader-network
