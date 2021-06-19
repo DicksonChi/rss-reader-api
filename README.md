@@ -38,9 +38,9 @@ http://127.0.0.1:8000/api/v1/docs/
 * `$ docker exec -it rss_reader_web_1 poetry run black --skip-string-normalization --line-length=120 tests`
 
 
-### To run mypy we need to run it inside the src folder
+### To run mypy we need to run it inside the rss_reader folder
 * `$ docker exec -it rss_reader_web_1 poetry run bash`
-* `$ cd src/ `
+* `$ cd rss_reader/ `
 * `$ mypy .`
 
 
