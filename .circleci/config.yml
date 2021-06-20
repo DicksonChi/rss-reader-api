@@ -34,8 +34,8 @@ jobs:
           password: $DOCKERHUB_PASSWORD
       - image: postgres:11.5
         environment:
-          POSTGRES_USER: $DBUSER
-          POSTGRES_PASSWORD: $DBPASSWORD
+          POSTGRES_USER: dbuser
+          POSTGRES_PASSWORD: dbpassword
           POSTGRES_DB: rss_reader_db
     steps:
       - checkout

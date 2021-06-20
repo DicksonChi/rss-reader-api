@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/github/DicksonChi/rss-reader-api.svg?style=svg)](https://circleci.com/github/DicksonChi/rss-reader-api)
 # RSS Reader API
 
 ## Readme Notes
