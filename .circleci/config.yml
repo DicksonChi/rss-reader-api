@@ -2,24 +2,53 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/circleci-rss-reader
+    working_directory: ~/django
     docker:
-      - image: chibuzordickson/rss-reader:0.0.1
+      - image: circleci/cci-demo-docker-primary:0.0.2
+      - image: postgres:11.5
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+      - image: chibuzordickson/rss_reader_web_1:0.0.1
         auth:
           username: chibuzordickson
           password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
+      - run:
+          name: "Waiting for Postgres to be ready"
+          command: |
+            for i in `seq 1 5`;
+            do
+              nc -z localhost 5432 && echo Success && exit 0
+              echo -n .
+              sleep 12
+            done
+            echo Failed waiting for Postgress && exit 0
   test:
-    working_directory: ~/circleci-rss-reader
+    working_directory: ~/django
     docker:
-      - image: chibuzordickson/rss-reader:0.0.1
+      - image: chibuzordickson/rss_reader_web_1:0.0.1
         auth:
           username: chibuzordickson
           password: $DOCKERHUB_PASSWORD
+      - image: postgres:11.5
+        environment:
+          POSTGRES_USER: $DBUSER
+          POSTGRES_PASSWORD: $DBPASSWORD
+          POSTGRES_DB: rss_reader_db
     steps:
       - checkout
-      - run: poetry run pytest tests/python
+      - run:
+          name: "Waiting for Postgres to be ready"
+          command: sleep 12
+      - run:
+          name: "install dependencies"
+          command: poetry install
+
+      - run:
+          name: "Run all test"
+          command: poetry run pytest tests/python
 
 workflows:
   build_and_test:
