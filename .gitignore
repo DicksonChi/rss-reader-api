@@ -23,22 +23,10 @@ rss_reader/static_dist/
 # SQLite3 database
 *.sqlite
 
-# Node modules
-node_modules/
-yarn.lock
-npm-debug.log
-package-lock.json
-
 # Coverage 
 coverage/
 .coverage
 .cache
-
-# static validation files
-.eslintrc
-.sass-lint.yml
-.prospector.yml
-.coveragerc
 
 # celery
 celerybeat-schedule
@@ -48,5 +36,3 @@ celerybeat.pid
 scripts/
 media/
 
-# bank statement scrapper
-statement_*

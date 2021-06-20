@@ -1,0 +1,30 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/circleci-rss-reader
+    docker:
+      - image: chibuzordickson/rss-reader:0.0.1
+        auth:
+          username: chibuzordickson
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+  test:
+    working_directory: ~/circleci-rss-reader
+    docker:
+      - image: chibuzordickson/rss-reader:0.0.1
+        auth:
+          username: chibuzordickson
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - run: poetry run pytest tests/python
+
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
