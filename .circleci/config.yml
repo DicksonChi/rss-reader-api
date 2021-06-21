@@ -24,7 +24,7 @@ jobs:
               echo -n .
               sleep 12
             done
-            echo Failed waiting for Postgress && exit 0
+            echo Failed waiting for Postgress && exit 1
   test:
     working_directory: ~/django
     docker:
