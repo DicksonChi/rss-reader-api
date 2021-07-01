@@ -25,7 +25,6 @@ services:
       dockerfile: Dockerfile
       args:
         POETRY_INSTALL_OPTIONS: ""
-    image: chibuzordickson/rss_reader_web_1:0.0.1
     env_file:
     - ./docker/develop/.env
     ports:
