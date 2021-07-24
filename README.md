@@ -35,7 +35,7 @@ http://127.0.0.1:8000/api/v1/docs/
 
 
 ### To run black
-* `$ docker exec -it rss_reader_web_1 poetry run black --skip-string-normalization --line-length=120 src`
+* `$ docker exec -it rss_reader_web_1 poetry run black --skip-string-normalization --line-length=120 rss_reader`
 * `$ docker exec -it rss_reader_web_1 poetry run black --skip-string-normalization --line-length=120 tests`
 
 
